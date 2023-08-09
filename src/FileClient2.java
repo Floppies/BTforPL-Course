@@ -15,34 +15,38 @@ public class FileClient2 extends FileClient {
         File file = new File("Received by line " + filename);
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         StringBuilder lineBuilder = new StringBuilder();
-        int readByte;
-        while((readByte = receiveLines(writer, lineBuilder))!= -1){
-            if (readByte == '\0'){
+        Ending readByte;
+        while((readByte = receiveLines(writer, lineBuilder))!= Ending.EMPTY){
+            if (readByte == Ending.END){
                 System.out.println("End of transmission");
                 break;
             }
-            else if (readByte == '\n'){
+            else if (readByte == Ending.JUMP){
                 lineBuilder = new StringBuilder();
                 System.out.println("Receiving line");
             }
         }
         writer.flush();
     }
-    
-    public int receiveLines(BufferedWriter writer, StringBuilder lineBuilder) throws Exception{
+
+    public Ending receiveLines(BufferedWriter writer, StringBuilder lineBuilder) throws Exception{
         int byteRead = in.read();
         if (byteRead == '\0') {
             writer.write(lineBuilder.toString());
             writer.newLine();
             lineBuilder.setLength(0);
+            return Ending.END;
         } else if (byteRead == '\n') {
             writer.write(lineBuilder.toString());
             writer.newLine();
             lineBuilder.setLength(0);
+            return Ending.JUMP;
+        }else if (byteRead == -1) {
+            return Ending.EMPTY;
         } else {
             lineBuilder.append((char) byteRead);
+            return Ending.ANY;
         }
-        return byteRead;
     }
 
     

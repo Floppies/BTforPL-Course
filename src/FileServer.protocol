@@ -3,12 +3,15 @@ typestate FileServerProtocol {
     boolean start(Socket): <true: Open, false: end>
   }
   Open = {
-    boolean hasRequest(): <true: Send, false: Close>
+    boolean hasRequest(): <true: SendByte, false: Close>
   }
-  Send = {
-    void sendFile(String): Close
+  SendByte = {
+    void sendByte(String): <true: SendEnd, false: SendByte>
+  }
+  SendEnd = {
+    void sendEndOfTransmission(): Close
   }
   Close = {
-     void close(): end
+    void close(): end
   }
 }

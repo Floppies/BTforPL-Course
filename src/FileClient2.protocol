@@ -1,4 +1,4 @@
-typestate FileClientProtocol {
+typestate FileClient2Protocol {
   Init = {
     boolean start(): <true: Open, false: end>
   }
@@ -7,6 +7,6 @@ typestate FileClientProtocol {
     void close(): end
   }
   Receive = {
-    boolean receive(FileOutputStream): <true: Receive, false: Open>
+    Ending receiveLines(BufferedWriter, StringBuilder): < ANY : Receive, END : Receive, JUMP : Receive, EMPTY : Open>
   }
 }
