@@ -24,18 +24,23 @@ public class FileClient {
     public void request(String filename) throws Exception {
         out.write(("REQUEST\n" + filename + "\n").getBytes());
         out.flush();
+        File file = new File("Received by byte " + filename);
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        while(receive(fileOutputStream)){
+            System.out.println("Receiving Byte");
+        }
+        fileOutputStream.flush();
+        fileOutputStream.close();
     }
 
-    public void receiveFile(String filename) throws Exception {
-        File file = new File(filename);
-
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            int byteRead;
-            while ((byteRead = in.read()) != 0) {
-                fileOutputStream.write(byteRead);
-            }
-            fileOutputStream.flush();
+    public boolean receive(FileOutputStream fileOutputStream) throws Exception {
+        int byteRead;
+        if ((byteRead = in.read()) != 0) {
+            fileOutputStream.write(byteRead);
+            return true;
         }
+        else
+            return false;
     }
 
     public void close() throws Exception {
@@ -51,7 +56,8 @@ public class FileClient {
 
             // Request a file
             client.request("example.txt");
-            client.receiveFile("received_example.txt");
+
+            client.request("example2.txt");
 
             client.close();
         } else {

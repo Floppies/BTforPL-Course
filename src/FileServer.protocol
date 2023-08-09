@@ -6,7 +6,7 @@ typestate FileServerProtocol {
     boolean hasRequest(): <true: Send, false: Close>
   }
   Send = {
-    void sendFile(): Close
+    void sendFile(String): Close
   }
   Close = {
      void close(): end

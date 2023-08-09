@@ -33,23 +33,21 @@ public class FileServer {
     public String getLastFilename() {
         return lastFilename;
     }
-
-    public void sendFile(String filename) throws Exception {
+    public void sendByte(String filename) throws Exception {
         File file = new File(filename);
         if (!file.exists() || !file.isFile()) {
             sendEndOfTransmission();
             return;
         }
-
+    
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
+            int byteRead;
+            while ((byteRead = fileInputStream.read()) != -1) {
+                out.write(byteRead);
                 out.flush();
             }
+            fileInputStream.close();;
         }
-
         sendEndOfTransmission();
     }
 
