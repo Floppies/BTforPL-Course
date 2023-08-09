@@ -1,0 +1,12 @@
+typestate FileClientProtocol {
+  Init = {
+    boolean start(): <true: Open, false: end>
+  }
+  Open = {
+    void request(String): Receive,
+    void close(): end
+  }
+  Receive = {
+    void receiveFile(String): Open
+  }
+}

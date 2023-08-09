@@ -1,0 +1,14 @@
+typestate FileServerProtocol {
+  Init = {
+    boolean start(Socket): <true: Open, false: end>
+  }
+  Open = {
+    boolean hasRequest(): <true: Send, false: Close>
+  }
+  Send = {
+    void sendFile(): Close
+  }
+  Close = {
+     void close(): end
+  }
+}

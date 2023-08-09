@@ -1,7 +1,8 @@
-package com.example;
 import java.io.*;
 import java.net.*;
+import jatyc.lib.Typestate;
 
+@Typestate("FileClient")
 public class FileClient {
     private Socket socket;
     protected OutputStream out;
