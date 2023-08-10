@@ -22,12 +22,14 @@ public class FileClient {
     }
 
     public void request(String filename) throws Exception {
-        out.write(("REQUEST\n" + filename + "\n").getBytes());
-        out.flush();
+        if(out != null){
+            out.write(("REQUEST\n" + filename + "\n").getBytes());
+            out.flush();
+        }
         File file = new File("Received by byte " + filename);
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         while(receive(fileOutputStream)){
-            System.out.println("Receiving Byte");
+            //System.out.println("Receiving Byte");
         }
         fileOutputStream.flush();
         fileOutputStream.close();
@@ -44,9 +46,12 @@ public class FileClient {
     }
 
     public void close() throws Exception {
-        out.write("CLOSE\n".getBytes());
-        out.flush();
-        socket.close();
+        if(out != null){
+            out.write("CLOSE\n".getBytes());
+            out.flush();
+        }
+        if (socket != null)
+            socket.close();
     }
 
     public static void main(String[] args) throws Exception {
