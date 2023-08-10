@@ -32,18 +32,18 @@ assignment).
 
 ### FileServer
 
-<img src="images/automaton.png" alt="File Server" width="400"/>
+<img src="images/automaton.png" alt="File Server" width="600"/>
 
 The behavior is stated in FileServer.protocol
 
 ### FileClient
 
-<img src="images/automaton2.png" alt="File Client" width="400"/>
+<img src="images/automaton2.png" alt="File Client" width="600"/>
 
 The behavior is stated in FileClient.protocol
 
 ### FileClient2
 
-<img src="images/automaton3.png" alt="File Client 2" width="400"/>
+<img src="images/automaton3.png" alt="File Client 2" width="600"/>
 
 The behavior is stated in FileClient2.protocol
