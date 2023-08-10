@@ -2,7 +2,7 @@
 
 ## Description
 
-This is the final assignment for the course “Behavioural Types for Mainstream PLs” given in ECI2023.
+This assignment concludes the course titled 'Behavioural Types for Mainstream PLs' held during the ECI2023 event.
 
 ## Requeriments
 
